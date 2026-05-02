@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Command Center | RT Solutions{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin_style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ffffff'/><path d='M20 20h60v60h-60z' fill='none' stroke='%231d1d1f' stroke-width='4'/><text x='50' y='66' font-size='46' font-weight='700' font-family='sans-serif' fill='%231d1d1f' text-anchor='middle'>RT</text></svg>">
+  {% block head %}{% endblock %}
+</head>
+<body class="admin-body">
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-outline" id="cursor-outline"></div>
+
+  <!-- Top Interface Bar -->
+
+  <nav class="navbar scrolled" style="background: rgba(255, 255, 255, 0.85); border-bottom: 1px solid var(--admin-border);">
+    <div class="container nav-container" style="max-width: 100%;">
+      <a href="{{ url_for('admin_dashboard') }}" class="nav-logo" style="color: var(--admin-text);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="24" height="24">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+        RT <span style="font-weight: 400; opacity: 0.6;">Command Center</span>
+      </a>
+      <div class="nav-actions">
+        <div class="admin-user-info" style="display: flex; flex-direction: column; align-items: flex-end; margin-right: 1.5rem;">
+          <span style="color: var(--admin-text); font-size: 0.85rem; font-weight: 600;">{{ current_admin.username }}</span>
+          <span class="admin-role-label" style="color: var(--admin-text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;">System Architect</span>
+        </div>
+        <a href="{{ url_for('index') }}" class="btn btn-outline btn-sm hide-mobile" style="color: var(--admin-text); border-color: var(--admin-border);">Live Site</a>
+        <a href="{{ url_for('admin_logout') }}" class="btn btn-sm" style="background: rgba(255, 59, 48, 0.1); color: var(--admin-error); border: 1px solid rgba(255, 59, 48, 0.15);">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+    <!-- Secondary Navigation -->
+    <aside class="admin-sidebar">
+      <ul class="sidebar-nav">
+        <li>
+          <a href="{{ url_for('admin_dashboard') }}" class="sidebar-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+            <span>Telemetry</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin_contacts') }}" class="sidebar-link {% if request.endpoint == 'admin_contacts' %}active{% endif %}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Inbound</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin_clients') }}" class="sidebar-link {% if request.endpoint == 'admin_clients' %}active{% endif %}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span>Entities</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin_settings') }}" class="sidebar-link {% if request.endpoint == 'admin_settings' %}active{% endif %}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Protocol</span>
+          </a>
+        </li>
+      </ul>
+
+      <div style="margin-top: auto; padding: 1.5rem; background: rgba(0,0,0,0.02); border-radius: 20px; border: 1px solid var(--admin-border);">
+        <div style="font-size: 0.7rem; font-weight: 700; color: var(--admin-text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">System Load</div>
+        <div style="height: 4px; background: rgba(0,0,0,0.05); border-radius: 2px; overflow: hidden;">
+          <div style="width: 42%; height: 100%; background: var(--admin-accent);"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.65rem; color: var(--admin-text-muted);">
+          <span>CPU: 42%</span>
+          <span>MEM: 1.2GB</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Operations Interface -->
+    <main class="admin-content">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script>
+    // Reveal animations using Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          
+          // Trigger counters
+          const counters = entry.target.querySelectorAll('.stat-counter');
+          counters.forEach(counter => {
+            const targetValue = parseFloat(counter.getAttribute('data-count'));
+            gsap.to(counter, {
+              innerText: targetValue,
+              duration: 2,
+              snap: { innerText: 1 },
+              ease: "power2.out"
+            });
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Unified Card Animations (Tilt & Glare)
+    const tiltCards = document.querySelectorAll('.glow-card');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const tiltX = (y - centerY) / 20;
+        const tiltY = (centerX - x) / 20;
+        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+      });
+    });
+    
+    // Custom Cursor Logic
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorOutline = document.getElementById('cursor-outline');
+    
+    if (cursorDot && cursorOutline) {
+      let mouseX = 0; let mouseY = 0;
+      let outlineX = 0; let outlineY = 0;
+      
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+      });
+
+      if (typeof gsap !== 'undefined') {
+        document.body.classList.add('custom-cursor-active');
+        gsap.ticker.add(() => {
+          outlineX += (mouseX - outlineX) * 0.15;
+          outlineY += (mouseY - outlineY) * 0.15;
+          cursorOutline.style.left = `${outlineX}px`;
+          cursorOutline.style.top = `${outlineY}px`;
+        });
+
+        // Cursor Hover States
+        const interactiveElements = document.querySelectorAll('a, button, .sidebar-link, .btn');
+        interactiveElements.forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            cursorOutline.classList.add('hovering');
+            cursorDot.classList.add('hovering');
+          });
+          el.addEventListener('mouseleave', () => {
+            cursorOutline.classList.remove('hovering');
+            cursorDot.classList.remove('hovering');
+          });
+        });
+      }
+    }
+
+    {% block scripts %}{% endblock %}
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %}Capabilities | RT Solutions{% endblock %}
+
+{% block content %}
+<div class="page-header reveal" style="padding-top: 10rem; padding-bottom: 6rem;">
+  <div class="container text-center" style="max-width: 800px; margin: 0 auto;">
+    <h1 class="page-title" style="margin-bottom: 1.5rem;">Engineering Capabilities</h1>
+    <p class="page-desc" style="font-size: 1.25rem;">Enterprise-grade systems development and rigorous technical training programs. We don't just write code; we engineer solutions.</p>
+  </div>
+</div>
+
+<!-- ── SYSTEM ARCHITECTURE DIAGRAM (CSS BASED) ── -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="glow-card card-animated reveal-scale">
+      <h3 style="font-size: 1.75rem; margin-bottom: 3rem; text-align: center; letter-spacing: -0.02em;">Typical Cloud Deployment Topology</h3>
+      
+      <div style="display: flex; flex-direction: column; gap: 2rem; max-width: 800px; margin: 0 auto;">
+        
+        <!-- Client Layer -->
+        <div class="reveal d-1" style="display: flex; align-items: center; justify-content: center; gap: 2rem;">
+          <div style="background: rgba(0, 102, 204, 0.05); border: 1px dashed var(--accent-blue); padding: 1.5rem 3rem; border-radius: var(--radius-sm); text-align: center; width: 100%;">
+            <strong style="color: var(--text-main); display: block; margin-bottom: 0.5rem;">Client Interface Layer</strong>
+            <span style="color: var(--text-muted); font-size: 0.9rem;">React.js / Next.js / Mobile Apps</span>
+          </div>
+        </div>
+        
+        <!-- Arrow -->
+        <div class="reveal d-1" style="display: flex; justify-content: center; color: var(--border-color);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+        </div>
+        
+        <!-- API Layer -->
+        <div class="reveal d-2" style="display: flex; align-items: center; justify-content: center; gap: 2rem;">
+          <div style="background: rgba(168, 83, 186, 0.05); border: 1px dashed rgba(168, 83, 186, 0.5); padding: 1.5rem 3rem; border-radius: var(--radius-sm); text-align: center; width: 100%;">
+            <strong style="color: var(--text-main); display: block; margin-bottom: 0.5rem;">API Gateway & Load Balancer</strong>
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Nginx / AWS API Gateway / Rate Limiting</span>
+          </div>
+        </div>
+        
+        <!-- Arrow -->
+        <div class="reveal d-2" style="display: flex; justify-content: center; color: var(--border-color);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+        </div>
+        
+        <!-- Compute & Data Layer -->
+        <div class="reveal d-3" class="topology-compute" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+          <div style="background: rgba(52, 199, 89, 0.05); border: 1px dashed rgba(52, 199, 89, 0.5); padding: 1.5rem 2rem; border-radius: var(--radius-sm); text-align: center;">
+            <strong style="color: var(--text-main); display: block; margin-bottom: 0.5rem;">Microservices</strong>
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Node.js / Python Flask / Docker Containers</span>
+          </div>
+          <div style="background: rgba(255, 149, 0, 0.05); border: 1px dashed rgba(255, 149, 0, 0.5); padding: 1.5rem 2rem; border-radius: var(--radius-sm); text-align: center;">
+            <strong style="color: var(--text-main); display: block; margin-bottom: 0.5rem;">Data Persistence</strong>
+            <span style="color: var(--text-muted); font-size: 0.9rem;">PostgreSQL / Redis Cache / S3 Storage</span>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0; padding-bottom: 8rem;">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 5rem;" class="reveal">
+      <h2 class="section-title">Deep-Dive Service Matrices</h2>
+    </div>
+
+    <div class="grid">
+      <!-- Service 1 -->
+      <div class="glow-card card-animated reveal-left">
+        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Custom Web Applications</h3>
+        <p style="color: var(--text-dark); margin-bottom: 2rem; min-height: 80px;">We engineer bespoke web applications tailored to complex business logic, utilizing modern component-based frontend frameworks and robust backend APIs.</p>
+        <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+          <strong style="display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; color: var(--text-main);">Stack Matrix</strong>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">React.js</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">Next.js</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">Node.js</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">PostgreSQL</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Service 2 -->
+      <div class="glow-card card-animated reveal-right">
+        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Cloud Infrastructure & DevOps</h3>
+        <p style="color: var(--text-dark); margin-bottom: 2rem; min-height: 80px;">Migration, optimization, and management of cloud systems. We implement CI/CD pipelines to ensure automated, zero-downtime deployments.</p>
+        <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+          <strong style="display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; color: var(--text-main);">Stack Matrix</strong>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">AWS / Azure</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">Docker</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">Kubernetes</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">GitHub Actions</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Service 3 -->
+      <div class="glow-card reveal-left d-1">
+        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Data Engineering & AI</h3>
+        <p style="color: var(--text-dark); margin-bottom: 2rem; min-height: 80px;">Constructing reliable data pipelines and integrating machine learning models (Python ecosystem) into existing enterprise software.</p>
+        <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+          <strong style="display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; color: var(--text-main);">Stack Matrix</strong>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">Python</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">Flask / Django</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">TensorFlow</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">Pandas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="glow-card reveal-right d-1">
+        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Academic Project Mentorship</h3>
+        <p style="color: var(--text-dark); margin-bottom: 2rem; min-height: 80px;">Specialized division assisting B-Tech and Degree students in developing real-time capstone projects from abstract to final code delivery.</p>
+        <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+          <strong style="display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; color: var(--text-main);">Program Deliverables</strong>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">Architecture Design</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">Full Source Code</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">UML Diagrams</span>
+            <span class="badge" style="background: rgba(0,0,0,0.04); color: var(--text-dark);">Interview Prep</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TECHNICAL WORKFLOW (HORIZONTAL STEPS) ── -->
+<section class="section" style="padding-top: 0; background: rgba(0,0,0,0.02);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 5rem;" class="reveal">
+      <h2 class="section-title">Delivery Lifecycle</h2>
+      <p style="color: var(--text-muted);">How we transition from abstract requirements to immutable production code.</p>
+    </div>
+
+    <!-- Interlocking Chevron Flow -->
+    <div class="delivery-flow" style="display: flex; gap: 1.5rem; padding: 2rem 0; overflow-x: auto; padding-bottom: 3rem;">
+      <!-- Step 01 -->
+      <div class="reveal d-1" style="flex: 1; min-width: 260px; position: relative; background: #fff; border: 1px solid var(--border-color); padding: 3rem 2rem; clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%); box-shadow: var(--shadow-sm); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-float)'" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
+        <div style="font-size: 3rem; font-weight: 900; color: rgba(0,0,0,0.02); position: absolute; top: 1rem; left: 1rem;">01</div>
+        <div style="position: relative; z-index: 1;">
+          <h4 style="font-size: 1.25rem; margin-bottom: 1rem; letter-spacing: -0.02em;">Discovery</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; max-width: 80%;">Technical feasibility study and architectural scoping.</p>
+        </div>
+      </div>
+
+      <!-- Step 02 -->
+      <div class="reveal d-2" style="flex: 1; min-width: 260px; position: relative; background: #fff; border: 1px solid var(--border-color); padding: 3rem 2rem 3rem 4rem; clip-path: polygon(85% 0%, 100% 50%, 85% 100%, 0% 100%, 15% 50%, 0% 0%); box-shadow: var(--shadow-sm); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-float)'" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
+        <div style="font-size: 3rem; font-weight: 900; color: rgba(0,0,0,0.02); position: absolute; top: 1rem; left: 3rem;">02</div>
+        <div style="position: relative; z-index: 1;">
+          <h4 style="font-size: 1.25rem; margin-bottom: 1rem; letter-spacing: -0.02em;">Blueprint</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; max-width: 80%;">UML modeling, database schema, and API contract design.</p>
+        </div>
+      </div>
+
+      <!-- Step 03 -->
+      <div class="reveal d-3" style="flex: 1; min-width: 260px; position: relative; background: #fff; border: 1px solid var(--border-color); padding: 3rem 2rem 3rem 4rem; clip-path: polygon(85% 0%, 100% 50%, 85% 100%, 0% 100%, 15% 50%, 0% 0%); box-shadow: var(--shadow-sm); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-float)'" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
+        <div style="font-size: 3rem; font-weight: 900; color: rgba(0,0,0,0.02); position: absolute; top: 1rem; left: 3rem;">03</div>
+        <div style="position: relative; z-index: 1;">
+          <h4 style="font-size: 1.25rem; margin-bottom: 1rem; letter-spacing: -0.02em;">Execution</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; max-width: 80%;">Iterative development with CI/CD and automated testing.</p>
+        </div>
+      </div>
+
+      <!-- Step 04 -->
+      <div class="reveal d-4" style="flex: 1; min-width: 260px; position: relative; background: #fff; border: 1px solid var(--border-color); padding: 3rem 2rem 3rem 4rem; clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 15% 50%, 0% 0%); box-shadow: var(--shadow-sm); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-float)'" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
+        <div style="font-size: 3rem; font-weight: 900; color: rgba(0,0,0,0.02); position: absolute; top: 1rem; left: 3rem;">04</div>
+        <div style="position: relative; z-index: 1;">
+          <h4 style="font-size: 1.25rem; margin-bottom: 1rem; letter-spacing: -0.02em;">Verification</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; max-width: 80%;">Rigorous QA, security audits, and load stress testing.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── INDUSTRY VERTICALS ── -->
+<section class="section">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 5rem;" class="reveal">
+      <h2 class="section-title">Industry Applications</h2>
+    </div>
+
+    <div class="verticals-container" style="display: flex; flex-direction: column; gap: 4rem;">
+      <!-- Vertical Sector 1 -->
+      <div class="vertical-sector reveal" style="display: flex; align-items: center; gap: 4rem;">
+        <div class="sector-content" style="flex: 1; text-align: right;">
+          <h3 style="font-size: 2rem; margin-bottom: 1rem; letter-spacing: -0.02em;">FinTech Systems</h3>
+          <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">High-security transaction engines and real-time ledger systems with encrypted data persistence.</p>
+        </div>
+        <div class="sector-icon" style="width: 120px; height: 120px; border-radius: 50%; background: #f4f4f4; display: flex; align-items: center; justify-content: center; color: var(--text-main); flex-shrink: 0; box-shadow: inset 0 0 20px rgba(0,0,0,0.05);">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+        </div>
+        <div class="sector-spacer" style="flex: 1;"></div>
+      </div>
+
+      <!-- Vertical Sector 2 -->
+      <div class="vertical-sector reveal d-1" style="display: flex; align-items: center; gap: 4rem; flex-direction: row-reverse;">
+        <div class="sector-content" style="flex: 1; text-align: left;">
+          <h3 style="font-size: 2rem; margin-bottom: 1rem; letter-spacing: -0.02em;">EdTech Ecosystems</h3>
+          <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">Learning Management Systems (LMS) and collaborative student engineering environments.</p>
+        </div>
+        <div class="sector-icon" style="width: 120px; height: 120px; border-radius: 50%; background: #f4f4f4; display: flex; align-items: center; justify-content: center; color: var(--text-main); flex-shrink: 0; box-shadow: inset 0 0 20px rgba(0,0,0,0.05);">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+        </div>
+        <div class="sector-spacer" style="flex: 1;"></div>
+      </div>
+
+      <!-- Vertical Sector 3 -->
+      <div class="vertical-sector reveal d-2" style="display: flex; align-items: center; gap: 4rem;">
+        <div class="sector-content" style="flex: 1; text-align: right;">
+          <h3 style="font-size: 2rem; margin-bottom: 1rem; letter-spacing: -0.02em;">E-Commerce Core</h3>
+          <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">Scalable multi-vendor platforms with real-time inventory tracking and dynamic pricing engines.</p>
+        </div>
+        <div class="sector-icon" style="width: 120px; height: 120px; border-radius: 50%; background: #f4f4f4; display: flex; align-items: center; justify-content: center; color: var(--text-main); flex-shrink: 0; box-shadow: inset 0 0 20px rgba(0,0,0,0.05);">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        </div>
+        <div class="sector-spacer" style="flex: 1;"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Telemetry Overview | RT Command Center{% endblock %}
+
+{% block content %}
+<header class="admin-header reveal">
+  <h1 class="admin-title">Telemetry Overview</h1>
+  <p style="color: var(--admin-text-muted); font-size: 1.1rem;">Monitoring enterprise interactions and system health in real-time.</p>
+</header>
+
+<div class="telemetry-grid">
+  <div class="telemetry-card glow-card card-animated reveal" style="padding: 2rem;">
+    <div class="stat-label">Total Volume</div>
+    <div class="stat-value stat-counter" data-count="{{ stats.total_contacts }}">{{ stats.total_contacts }}</div>
+    <div style="font-size: 0.8rem; color: var(--admin-success); margin-top: 1rem; display: flex; align-items: center; gap: 0.25rem;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"></polyline></svg>
+      +12.5% vs last period
+    </div>
+  </div>
+
+  <div class="telemetry-card reveal" style="transition-delay: 0.2s;">
+    <div class="stat-label">Pending Triage</div>
+    <div class="stat-value stat-counter" data-count="{{ stats.new_contacts }}" style="color: var(--admin-accent);">{{ stats.new_contacts }}</div>
+    <div style="font-size: 0.8rem; color: var(--admin-text-muted); margin-top: 1rem;">Action required for {{ stats.new_contacts }} items</div>
+  </div>
+
+  <div class="telemetry-card reveal" style="transition-delay: 0.3s;">
+    <div class="stat-label">Engaged Entities</div>
+    <div class="stat-value stat-counter" data-count="{{ stats.contacted }}">{{ stats.contacted }}</div>
+    <div style="font-size: 0.8rem; color: var(--admin-text-muted); margin-top: 1rem;">Active communication channels</div>
+  </div>
+
+  <div class="telemetry-card reveal" style="transition-delay: 0.4s;">
+    <div class="stat-label">Active Clients</div>
+    <div class="stat-value stat-counter" data-count="{{ stats.active_clients }}" style="color: var(--admin-success);">{{ stats.active_clients }}</div>
+    <div style="font-size: 0.8rem; color: var(--admin-text-muted); margin-top: 1rem;">Retained enterprise partners</div>
+  </div>
+</div>
+
+<div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;" class="reveal">
+  <h2 style="font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em;">Inbound Event Log</h2>
+  <a href="{{ url_for('admin_contacts') }}" style="color: var(--admin-accent); font-weight: 600; font-size: 0.9rem; text-decoration: none;">View Complete Stream &rarr;</a>
+</div>
+
+<div class="data-panel reveal">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Identifier</th>
+        <th>Vector / Channel</th>
+        <th>Category</th>
+        <th>Operational State</th>
+        <th>System Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for contact in recent_contacts %}
+      <tr>
+        <td>
+          <div style="font-weight: 700; color: #fff;">{{ contact.name }}</div>
+          <div style="font-size: 0.75rem; color: var(--admin-text-muted);">ID: #{{ contact.id }}</div>
+        </td>
+        <td>{{ contact.email }}</td>
+        <td>
+          <span style="background: rgba(255,255,255,0.05); padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.8rem;">
+            {{ contact.service or 'Unclassified' }}
+          </span>
+        </td>
+        <td>
+          <span class="status-badge {% if contact.status == 'new' %}badge-new{% elif contact.status == 'contacted' %}badge-contacted{% else %}badge-resolved{% endif %}">
+            {{ contact.status }}
+          </span>
+        </td>
+        <td>
+          <div style="color: var(--admin-text-muted);">{{ contact.created_at.strftime('%Y-%m-%d') }}</div>
+          <div style="font-size: 0.8rem; opacity: 0.6;">{{ contact.created_at.strftime('%H:%M:%S UTC') }}</div>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" style="text-align: center; padding: 6rem; color: var(--admin-text-muted);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="margin-bottom: 1.5rem; opacity: 0.3;">
+            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+            <polyline points="13 2 13 9 20 9"></polyline>
+          </svg>
+          <div style="font-size: 1.1rem; font-weight: 500;">No telemetry data currently streaming.</div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

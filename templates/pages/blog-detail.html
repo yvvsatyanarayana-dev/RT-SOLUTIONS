@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} | RT Solutions Insights{% endblock %}
+
+{% block content %}
+<div class="page-header reveal" style="text-align: left; padding: 10rem 0 5rem;">
+  <div class="container" style="max-width: 800px;">
+    <a href="{{ url_for('blog') }}" style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; font-weight: 500; color: var(--text-muted); margin-bottom: 2rem; transition: var(--transition);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      Back to Insights
+    </a>
+    <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+      <span style="background: rgba(0, 102, 204, 0.1); color: var(--accent-blue); padding: 0.35rem 0.85rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Engineering</span>
+      <span style="color: var(--text-muted); font-size: 0.95rem; font-weight: 500;">{{ post.created_at.strftime('%B %d, %Y') }}</span>
+    </div>
+    <h1 class="page-title" style="margin-bottom: 2.5rem; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.02em;">{{ post.title }}</h1>
+    
+    <div style="display: flex; align-items: center; gap: 1.25rem; border-top: 1px solid var(--border-color); padding-top: 2.5rem;">
+      <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-main); font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; box-shadow: var(--shadow-sm);">
+        RT
+      </div>
+      <div>
+        <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.25rem;">RT Engineering Team</div>
+        <div style="color: var(--text-muted); font-size: 0.95rem;">Architecture & Delivery</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" style="padding-top: 0; padding-bottom: 8rem;">
+  <div class="container" style="max-width: 800px;">
+    <div class="glass-panel reveal" style="padding: 4rem; font-size: 1.15rem; line-height: 1.8; color: var(--text-dark); text-align: left;">
+      {{ post.content | replace('\n', '<br><br>') | safe }}
+    </div>
+    
+    <div class="reveal" style="margin-top: 5rem; padding-top: 3rem; border-top: 1px solid var(--border-color); text-align: center;">
+      <h3 style="font-size: 1.75rem; margin-bottom: 1rem; color: var(--text-main); letter-spacing: -0.01em;">Discuss this Architecture</h3>
+      <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Interested in implementing similar solutions for your enterprise?</p>
+      <a href="{{ url_for('contact') }}" class="btn btn-outline" style="padding: 1rem 2.5rem; font-size: 1.05rem;">Schedule Technical Review</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Technical Insights | RT Solutions{% endblock %}
+
+{% block content %}
+<div class="page-header reveal">
+  <div class="container">
+    <h1 class="page-title">Technical Insights</h1>
+    <p class="page-desc">Deep dives into system architecture, engineering methodologies, and emerging technology stacks by our senior developers.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top: 0; padding-bottom: 8rem;">
+  <div class="container">
+    <div class="grid">
+      {% for post in posts %}
+      <div class="glow-card card-animated reveal" style="padding: 0; display: flex; flex-direction: column; overflow: hidden;">
+        <div style="padding: 3rem; flex: 1;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <span style="background: rgba(0, 102, 204, 0.1); color: var(--accent-blue); padding: 0.35rem 0.85rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Engineering</span>
+            <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">{{ post.created_at.strftime('%B %d, %Y') }}</span>
+          </div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 1rem;"><a href="{{ url_for('blog_post', slug=post.slug) }}" style="color: var(--text-main);">{{ post.title }}</a></h3>
+          <p style="color: var(--text-dark); line-height: 1.7;">{{ post.excerpt or post.content[:150] ~ '...' }}</p>
+        </div>
+        <div style="padding: 1.5rem 3rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.4);">
+          <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">RT Engineering Team</span>
+          <a href="{{ url_for('blog_post', slug=post.slug) }}" style="font-size: 0.95rem; font-weight: 600; color: var(--accent-blue); display: flex; align-items: center; gap: 0.35rem;">
+            Read Report
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+      </div>
+      {% else %}
+      <div class="glass-panel" style="grid-column: 1 / -1; padding: 5rem; text-align: center;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--border-color)" stroke-width="2" style="margin-bottom: 1.5rem;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <h3 style="font-size: 1.75rem; margin-bottom: 0.5rem; letter-spacing: -0.01em;">Insights Repository Empty</h3>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">Our engineering team is currently compiling new technical reports. Please check back later.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ── TECHNICAL WHITEPAPERS ── -->
+<section class="section" style="padding-top: 0; background: rgba(0,0,0,0.02);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 5rem;" class="reveal">
+      <h2 class="section-title">Technical Whitepapers</h2>
+      <p style="color: var(--text-muted);">Long-form research on architecture and engineering methodology.</p>
+    </div>
+
+    <div class="grid">
+      <div class="glow-card card-animated reveal" style="padding: 2.5rem; border-top: 4px solid var(--text-main);">
+        <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1.5rem;">Whitepaper #204</h4>
+        <h3 style="margin-bottom: 1rem;">Scalable Microservices in Python</h3>
+        <p style="font-size: 0.95rem; color: var(--text-dark); margin-bottom: 2rem;">A deep dive into asynchronous task management and state preservation in distributed systems.</p>
+        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-main);">[PDF] DOWNLOAD REPORT</span>
+      </div>
+      <div class="glow-card card-animated reveal d-1" style="padding: 2.5rem; border-top: 4px solid var(--text-main);">
+        <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1.5rem;">Whitepaper #205</h4>
+        <h3 style="margin-bottom: 1rem;">JWT Security Architectures</h3>
+        <p style="font-size: 0.95rem; color: var(--text-dark); margin-bottom: 2rem;">Analyzing token-based authentication patterns for multi-tenant enterprise platforms.</p>
+        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-main);">[PDF] DOWNLOAD REPORT</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER ── -->
+<section class="section">
+  <div class="container">
+    <div class="cta-banner reveal" style="padding: 4rem 3rem;">
+      <h2 style="font-size: 2.25rem; margin-bottom: 1rem;">Join the Engineering Pulse</h2>
+      <p style="margin-bottom: 2.5rem;">Get bi-weekly technical insights directly from our architecture team.</p>
+      <div style="display: flex; max-width: 500px; margin: 0 auto; gap: 0.5rem;">
+        <input type="email" class="form-control" placeholder="engineer@domain.com" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff;">
+        <button class="btn btn-outline" style="background: #fff; color: var(--text-main); border: none; white-space: nowrap;">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

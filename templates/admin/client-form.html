@@ -1,0 +1,172 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Register Entity | RT Command Center{% endblock %}
+
+{% block head %}
+<style>
+    .form-card {
+      background: var(--admin-surface);
+      border: 1px solid var(--admin-border);
+      border-radius: 24px;
+      padding: 3rem;
+      max-width: 800px;
+      box-shadow: var(--shadow-sm);
+    }
+    .form-group { margin-bottom: 2rem; }
+    .form-label { 
+      display: block; 
+      font-size: 0.8rem; 
+      font-weight: 700; 
+      color: var(--admin-text-muted); 
+      margin-bottom: 0.75rem; 
+      text-transform: uppercase; 
+      letter-spacing: 1px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 1.25rem;
+      background: #fafafa;
+      border: 1px solid var(--admin-border);
+      border-radius: 14px;
+      color: var(--admin-text);
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--admin-accent);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+    }
+    select.form-control option {
+      background: #fff;
+      color: var(--admin-text);
+      padding: 1rem;
+    }
+    .message {
+      padding: 1.25rem; 
+      border-radius: 16px; 
+      margin-bottom: 2rem; 
+      font-weight: 600; 
+      display: none;
+    }
+    .message.success { background: rgba(50, 215, 75, 0.1); color: #10b981; border: 1px solid rgba(50, 215, 75, 0.2); }
+    .message.error { background: rgba(255, 69, 58, 0.1); color: #ef4444; border: 1px solid rgba(255, 69, 58, 0.2); }
+</style>
+{% endblock %}
+
+{% block content %}
+<header class="admin-header reveal">
+  <h1 class="admin-title">Entity Registration</h1>
+  <p style="color: var(--admin-text-muted); font-size: 1.1rem;">Onboard a new enterprise partner or academic division into the RT ecosystem.</p>
+</header>
+
+<div class="form-card reveal">
+  <div id="message" class="message"></div>
+  <form id="clientForm">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <div class="form-group">
+        <label class="form-label" for="name">Legal Name / Identifier *</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Acme Corp" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Communication Vector (Email) *</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="contact@acme.com" required>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <div class="form-group">
+        <label class="form-label" for="phone">Phone System</label>
+        <input type="tel" id="phone" name="phone" class="form-control" placeholder="+1 (555) 000-0000">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="company">Enterprise Name</label>
+        <input type="text" id="company" name="company" class="form-control" placeholder="Acme International">
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <div class="form-group">
+        <label class="form-label" for="industry">Vertical / Sector</label>
+        <select id="industry" name="industry" class="form-control">
+          <option value="">Select Vertical</option>
+          <option value="Technology">Technology</option>
+          <option value="Finance">Finance</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Retail">Retail</option>
+          <option value="Manufacturing">Manufacturing</option>
+          <option value="Education">Education</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="status">Initial Status</label>
+        <select id="status" name="status" class="form-control">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="prospect">Prospect</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="contract_value">Contract Valuation (₹)</label>
+      <input type="number" id="contract_value" name="contract_value" class="form-control" min="0" step="100" placeholder="50000">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="notes">Operational Notes</label>
+      <textarea id="notes" name="notes" class="form-control" rows="4" placeholder="Brief context on this entity..."></textarea>
+    </div>
+
+    <div style="display: flex; gap: 1.5rem; margin-top: 3rem;">
+      <button type="submit" class="btn btn-primary" style="padding: 1rem 2.5rem; border-radius: 14px; flex: 2;">Commit Registration</button>
+      <a href="{{ url_for('admin_clients') }}" class="btn btn-outline" style="padding: 1rem 2rem; border-radius: 14px; flex: 1; text-align: center; color: var(--admin-text); border-color: var(--admin-border);">Abort</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  document.getElementById('clientForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      company: document.getElementById('company').value,
+      industry: document.getElementById('industry').value,
+      status: document.getElementById('status').value,
+      contract_value: document.getElementById('contract_value').value,
+      notes: document.getElementById('notes').value
+    };
+
+    try {
+      const response = await fetch('/admin/clients/add', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json();
+      const messageDiv = document.getElementById('message');
+      
+      if (response.ok) {
+        messageDiv.className = 'message success';
+        messageDiv.textContent = '✓ Entity registered successfully in the RT system.';
+        messageDiv.style.display = 'block';
+        setTimeout(() => window.location.href = '{{ url_for("admin_clients") }}', 1500);
+      } else {
+        messageDiv.className = 'message error';
+        messageDiv.textContent = '✗ Execution failed: ' + data.message;
+        messageDiv.style.display = 'block';
+      }
+    } catch (error) {
+      const messageDiv = document.getElementById('message');
+      messageDiv.className = 'message error';
+      messageDiv.textContent = '✗ System error during registration.';
+      messageDiv.style.display = 'block';
+    }
+  });
+{% endblock %}

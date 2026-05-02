@@ -1,0 +1,106 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Inbound Inquiries | RT Command Center{% endblock %}
+
+{% block content %}
+<header class="admin-header reveal">
+  <h1 class="admin-title">Inbound Inquiries</h1>
+  <p style="color: var(--admin-text-muted); font-size: 1.1rem;">Manage and triage incoming technical consultation requests.</p>
+</header>
+
+<div class="data-panel reveal">
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Identifier</th>
+          <th>Contact Vector</th>
+          <th>Service</th>
+          <th>Operational State</th>
+          <th>Timestamp</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for contact in contacts.items %}
+        <tr>
+          <td>
+            <div style="font-weight: 700; color: var(--admin-text);">{{ contact.name }}</div>
+            <div style="font-size: 0.75rem; color: var(--admin-text-muted);">{{ contact.phone or 'No Vector' }}</div>
+          </td>
+          <td>{{ contact.email }}</td>
+          <td>
+            <span style="background: linear-gradient(135deg, #1d1d1f 0%, #6e6e73 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.8rem; color: var(--admin-text);">
+              {{ contact.service or 'Unclassified' }}
+            </span>
+          </td>
+          <td>
+            <span class="status-badge {% if contact.status == 'new' %}badge-new{% elif contact.status == 'contacted' %}badge-contacted{% else %}badge-resolved{% endif %}">
+              {{ contact.status }}
+            </span>
+          </td>
+          <td style="color: var(--admin-text-muted);">{{ contact.created_at.strftime('%Y-%m-%d') }}</td>
+          <td>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-outline btn-sm" style="padding: 0.35rem 0.75rem; border-color: var(--admin-border); color: var(--admin-text);" onclick="editContact({{ contact.id }})">Triage</button>
+              <button class="btn btn-sm" style="padding: 0.35rem 0.75rem; background: rgba(255, 69, 58, 0.1); color: var(--admin-error); border: 1px solid rgba(255, 69, 58, 0.2);" onclick="deleteContact({{ contact.id }})">Purge</button>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" style="text-align: center; padding: 6rem; color: var(--admin-text-muted);">No inquiries recorded.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% if contacts.pages > 1 %}
+  <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 3rem;" class="reveal">
+    {% if contacts.has_prev %}
+      <a href="{{ url_for('admin_contacts', page=contacts.prev_num) }}" class="btn btn-outline btn-sm" style="color: var(--admin-text); border-color: var(--admin-border);">&larr;</a>
+    {% endif %}
+    {% for page in contacts.iter_pages() %}
+      {% if page %}
+        {% if page == contacts.page %}
+          <button class="btn btn-primary btn-sm" disabled>{{ page }}</button>
+        {% else %}
+          <a href="{{ url_for('admin_contacts', page=page) }}" class="btn btn-outline btn-sm" style="color: var(--admin-text); border-color: var(--admin-border);">{{ page }}</a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% if contacts.has_next %}
+      <a href="{{ url_for('admin_contacts', page=contacts.next_num) }}" class="btn btn-outline btn-sm" style="color: var(--admin-text); border-color: var(--admin-border);">&rarr;</a>
+    {% endif %}
+  </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+  function editContact(id) {
+    const newStatus = prompt('Set operational state: new / contacted / resolved');
+    if (newStatus && ['new', 'contacted', 'resolved'].includes(newStatus.toLowerCase())) {
+      fetch(`/admin/api/contact/${id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({status: newStatus.toLowerCase()})
+      }).then(r => r.json()).then(d => {
+        if (d.status === 'success') location.reload();
+      });
+    }
+  }
+
+  function deleteContact(id) {
+    if (confirm('Irrevocably purge this record from the database?')) {
+      fetch(`/admin/api/contact/${id}`, {method: 'DELETE'})
+        .then(r => r.json())
+        .then(d => { if (d.status === 'success') location.reload(); });
+    }
+  }
+{% endblock %}

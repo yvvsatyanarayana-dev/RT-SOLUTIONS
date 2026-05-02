@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ | RT Solutions{% endblock %}
+
+{% block content %}
+<div class="page-header reveal">
+  <div class="container">
+    <h1 class="page-title">Frequently Asked Questions</h1>
+    <p class="page-desc">Technical inquiries and operational details regarding our engineering services and academic programs.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top: 0; padding-bottom: 8rem;">
+  <div class="container" style="max-width: 800px;">
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      {% for q, a in [
+        ('What is your standard technology stack for enterprise applications?', 'We remain technology-agnostic but heavily utilize React, Angular, Node.js, Python (Flask/Django), Java (Spring Boot), and Go. Infrastructure is typically deployed via Docker/Kubernetes on AWS or Azure.'),
+        ('Do you handle legacy system modernization?', 'Yes. We conduct comprehensive audits of legacy systems and architect phased migration strategies to cloud-native microservices, ensuring zero operational downtime.'),
+        ('How do you manage data security and compliance?', 'Security is integrated at every layer. We enforce encryption at rest and in transit, implement robust IAM protocols, and ensure compliance with relevant standards (HIPAA, GDPR) based on the project domain.'),
+        ('What is the structure of your academic project program?', 'Our academic division provides end-to-end guidance for Degree and B-Tech students. This includes requirement analysis, architectural design, full-stack development, and comprehensive documentation (abstracts, UML diagrams, source code).'),
+        ('Do you provide post-deployment support?', 'Absolutely. We offer Service Level Agreements (SLAs) for enterprise clients covering infrastructure monitoring, bug fixes, security patching, and feature scaling.'),
+        ('How can we initiate a technical consultation?', 'You can reach our engineering team via the Contact page or by calling +91 99637 43943. Initial consultations involve a high-level architectural review of your requirements.')
+      ] %}
+      <div class="glass-panel reveal" style="padding: 1.75rem 2rem; cursor: pointer; transition: var(--transition);" onclick="const ans = this.querySelector('.ans'); const icon = this.querySelector('.icon'); if(ans.style.display==='none'){ans.style.display='block';icon.style.transform='rotate(180deg)';}else{ans.style.display='none';icon.style.transform='rotate(0deg)';}">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="font-size: 1.15rem; margin: 0; color: var(--text-main); font-weight: 600; letter-spacing: -0.01em;">{{ q }}</h3>
+          <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-dark)" stroke-width="2.5" style="transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <p class="ans" style="display: none; margin-top: 1.25rem; color: var(--text-muted); font-size: 1rem; line-height: 1.6; border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+          {{ a }}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

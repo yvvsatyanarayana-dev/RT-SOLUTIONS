@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us | RT Solutions{% endblock %}
+
+{% block content %}
+<div class="page-header reveal">
+  <div class="container">
+    <h1 class="page-title">Engage Our Engineers</h1>
+    <p class="page-desc">Connect with our architecture team to discuss your next technical initiative or training requirement.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top: 0; padding-bottom: 10rem;">
+  <div class="container">
+    <div class="stack-grid" style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem;">
+      <div class="reveal">
+        <h2 style="font-size: 2.25rem; margin-bottom: 1.5rem;">Corporate Headquarters</h2>
+        <p style="color: var(--text-muted); margin-bottom: 3rem; font-size: 1.1rem;">Our technical delivery center is located in Kakinada, equipped with state-of-the-art infrastructure for uninterrupted development and training.</p>
+        
+        <div class="contact-info-list" style="display: flex; flex-direction: column; gap: 2rem;">
+          <div class="contact-item" style="display: flex; gap: 1.25rem; align-items: flex-start;">
+            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 0, 0, 0.04); display: flex; align-items: center; justify-content: center; color: var(--text-main); flex-shrink: 0; border: 1px solid rgba(0,0,0,0.05);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <div>
+              <h4 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Address</h4>
+              <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.5;">D-NO-10-214, Siva Krishna Colony,<br>Turangi, Kakinada - 16, AP</p>
+            </div>
+          </div>
+          
+          <div class="contact-item" style="display: flex; gap: 1.25rem; align-items: flex-start;">
+            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 0, 0, 0.04); display: flex; align-items: center; justify-content: center; color: var(--text-main); flex-shrink: 0; border: 1px solid rgba(0,0,0,0.05);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.09 12.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 20.92z"></path></svg>
+            </div>
+            <div>
+              <h4 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Contact Number</h4>
+              <p style="color: var(--text-muted); font-size: 1rem;">+91 99637 43943</p>
+            </div>
+          </div>
+          
+          <div class="contact-item" style="display: flex; gap: 1.25rem; align-items: flex-start;">
+            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 0, 0, 0.04); display: flex; align-items: center; justify-content: center; color: var(--text-main); flex-shrink: 0; border: 1px solid rgba(0,0,0,0.05);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <div>
+              <h4 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Business Hours</h4>
+              <p style="color: var(--text-muted); font-size: 1rem;">Mon - Sat: 09:00 - 19:00 IST</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="glass-panel contact-form-card reveal" style="padding: 3.5rem; transition-delay: 0.2s;">
+        <h3 style="font-size: 1.75rem; margin-bottom: 2rem;">Technical Inquiry</h3>
+        <form id="contactForm">
+          <div class="form-row" style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Given Name</label>
+              <input type="text" class="form-control" placeholder="First Name" required>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Surname</label>
+              <input type="text" class="form-control" placeholder="Last Name" required>
+            </div>
+          </div>
+          <div class="form-row" style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-control" placeholder="corporate@email.com" required>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Contact Number</label>
+              <input type="tel" class="form-control" placeholder="+91" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label">Organization / Institution</label>
+            <input type="text" class="form-control" placeholder="Company or College Name">
+          </div>
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label">Inquiry Type</label>
+            <select class="form-control" required style="appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=%22none%22 stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22><polyline points=%226 9 12 15 18 9%22/></svg>'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em;">
+              <option value="" disabled selected>Select an Option</option>
+              <option>Enterprise Web Application</option>
+              <option>Mobile App Engineering</option>
+              <option>Cloud Migration</option>
+              <option>Academic Project Development</option>
+              <option>Corporate Training Program</option>
+              <option>Other Consultation</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom: 2.5rem;">
+            <label class="form-label">Project Details</label>
+            <textarea class="form-control" rows="4" placeholder="Briefly describe your requirements or tech stack preferences..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.05rem;" id="submitBtn">Submit Inquiry</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STRATEGIC ENGAGEMENT ── -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 5rem;" class="reveal">
+      <h2 class="section-title">Why Engage with RT Solutions?</h2>
+      <p style="color: var(--text-muted);">The architectural advantage of partnering with our engineering core.</p>
+    </div>
+
+    <div class="grid">
+      <div class="glow-card card-animated reveal">
+        <h3>Architectural Precision</h3>
+        <p style="color: var(--text-dark);">We don't just build features; we build systems. Every line of code is evaluated for its impact on long-term scalability and maintenance.</p>
+      </div>
+      <div class="glow-card card-animated reveal d-1">
+        <h3>Academic Pedagogy</h3>
+        <p style="color: var(--text-dark);">Our unique dual-focus ensures we stay at the cutting edge of technical teaching and enterprise delivery simultaneously.</p>
+      </div>
+      <div class="glow-card card-animated reveal d-2">
+        <h3>Transparent Logic</h3>
+        <p style="color: var(--text-dark);">You own the architecture. We provide deep-dive documentation and knowledge transfer sessions as a standard deliverable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="toast" id="toast">
+  <svg class="toast-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+  <span style="font-weight: 500; font-size: 0.95rem;">Inquiry transmitted successfully. We will contact you shortly.</span>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.innerText = 'Processing...';
+  btn.style.opacity = '0.7';
+  btn.disabled = true;
+  
+  setTimeout(() => {
+    btn.innerText = 'Submit Inquiry';
+    btn.style.opacity = '1';
+    btn.disabled = false;
+    e.target.reset();
+    
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 5000);
+  }, 1500);
+});
+</script>
+{% endblock %}

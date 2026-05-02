@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Client Success | RT Solutions{% endblock %}
+
+{% block content %}
+<div class="page-header reveal">
+  <div class="container">
+    <h1 class="page-title">Client Success</h1>
+    <p class="page-desc">Real-world impact and feedback from the enterprises and engineering students we've partnered with.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top: 0; padding-bottom: 8rem;">
+  <div class="container">
+    {% if testimonials %}
+      <div class="grid">
+        {% for testimonial in testimonials %}
+          <div class="glow-card reveal" style="padding: 3.5rem; display: flex; flex-direction: column;">
+            <div style="display: flex; gap: 0.25rem; margin-bottom: 1.5rem;">
+              {% for i in range(testimonial.rating) %}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffb800" stroke="#ffb800" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              {% endfor %}
+            </div>
+            <p style="color: var(--text-dark); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; font-style: italic; flex: 1;">
+              "{{ testimonial.content }}"
+            </p>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(0,0,0,0.04); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--text-main);">
+                {{ testimonial.author[0] }}
+              </div>
+              <div>
+                <h4 style="font-size: 1.05rem; margin-bottom: 0.15rem; color: var(--text-main);">{{ testimonial.author }}</h4>
+                <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">
+                  {{ testimonial.position }}{% if testimonial.company %}, {{ testimonial.company }}{% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="glass-panel" style="padding: 5rem; text-align: center;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--border-color)" stroke-width="2" style="margin-bottom: 1.5rem;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <h3 style="font-size: 1.75rem; margin-bottom: 0.5rem; letter-spacing: -0.01em;">Metrics Compiling</h3>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">We are currently migrating our enterprise feedback database. Check back soon.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="cta-banner reveal-scale">
+      <h2 style="font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -0.02em;">Ready to engineer your solution?</h2>
+      <p>Initiate a technical consultation to discuss your specific infrastructure or training requirements.</p>
+      <a href="{{ url_for('contact') }}" class="btn btn-outline" style="padding: 1.25rem 3rem; font-size: 1.1rem; background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">Connect With Engineering</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

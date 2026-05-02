@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}RT Solutions | Professional Engineering{% endblock %}</title>
+  <meta name="description" content="RT Solutions — Enterprise-grade IT services, real-time application development, and professional technical training.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ffffff'/><path d='M20 20h60v60h-60z' fill='none' stroke='%231d1d1f' stroke-width='4'/><text x='50' y='66' font-size='46' font-weight='700' font-family='sans-serif' fill='%231d1d1f' text-anchor='middle'>RT</text></svg>">
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+<!-- Preloader -->
+<div id="preloader" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg-surface); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease;">
+  <div style="text-align: center;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--text-main)" stroke-width="2.5" width="60" height="60" style="margin-bottom: 1rem; animation: pulse 1.5s infinite;">
+      <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+      <polyline points="2 17 12 22 22 17"></polyline>
+      <polyline points="2 12 12 17 22 12"></polyline>
+    </svg>
+    <div style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; color: var(--text-main);">RT Solutions</div>
+  </div>
+</div>
+
+<!-- Custom Cursor -->
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-outline" id="cursor-outline"></div>
+
+<!-- Dynamic Parallax Background -->
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+
+<nav class="navbar" id="navbar">
+  <div class="container nav-container">
+    <a href="{{ url_for('index') }}" class="nav-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+      RT Solutions
+    </a>
+    
+    <ul class="nav-links" id="nav-links">
+      <li><a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
+      <li><a href="{{ url_for('capabilities') }}" class="{% if request.endpoint == 'capabilities' %}active{% endif %}">Capabilities</a></li>
+      <li><a href="{{ url_for('architecture') }}" class="{% if request.endpoint == 'architecture' %}active{% endif %}">Architecture</a></li>
+      <li><a href="{{ url_for('insights') }}" class="{% if request.endpoint == 'insights' %}active{% endif %}">Insights</a></li>
+      <li><a href="{{ url_for('engage') }}" class="{% if request.endpoint == 'engage' %}active{% endif %}">Engage</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      {% if current_admin %}
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline btn-sm">Admin Workspace</a>
+        <a href="{{ url_for('admin_logout') }}" class="btn btn-sm" style="color: #ff3b30;">Logout</a>
+      {% else %}
+        <a href="{{ url_for('engage') }}" class="btn btn-primary btn-sm">Start Project</a>
+      {% endif %}
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6" id="line1"></line>
+        <line x1="3" y1="12" x2="21" y2="12" id="line2"></line>
+        <line x1="3" y1="18" x2="21" y2="18" id="line3"></line>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+  <button id="closeMobileMenu" style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--text-main); cursor: pointer; padding: 0.5rem;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+  <ul class="mobile-menu-links">
+    <li><a href="{{ url_for('index') }}">Home</a></li>
+    <li><a href="{{ url_for('capabilities') }}">Capabilities</a></li>
+    <li><a href="{{ url_for('architecture') }}">Architecture</a></li>
+    <li><a href="{{ url_for('insights') }}">Insights</a></li>
+    <li><a href="{{ url_for('engage') }}">Engage</a></li>
+    {% if current_admin %}
+      <li><a href="{{ url_for('admin_dashboard') }}">Admin</a></li>
+    {% endif %}
+  </ul>
+</div>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer" style="background: var(--bg-surface); padding: 4rem 0 2rem; border-top: 1px solid var(--border-color); margin-top: 4rem; position: relative;">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+      <div style="grid-column: span 2;">
+        <a href="{{ url_for('index') }}" style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="26" height="26">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          RT Solutions
+        </a>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; max-width: 400px;">Architecting high-performance digital ecosystems through specialized technical protocols and engineering excellence.</p>
+      </div>
+      
+      <div>
+        <h4 style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">Ecosystem</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+          <li><a href="{{ url_for('capabilities') }}" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500; text-decoration: none;">Services</a></li>
+          <li><a href="{{ url_for('architecture') }}" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500; text-decoration: none;">Architecture</a></li>
+          <li><a href="{{ url_for('insights') }}" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500; text-decoration: none;">Insights</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">Legal</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+          <li><a href="{{ url_for('privacy') }}" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500; text-decoration: none;">Privacy</a></li>
+          <li><a href="{{ url_for('terms') }}" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500; text-decoration: none;">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+      <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">&copy; 2026 RT Solutions Inc. <span style="opacity: 0.5; margin-left: 0.3rem;">All Rights Reserved.</span></span>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="#" style="color: var(--text-muted); font-size: 0.75rem; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">LinkedIn</a>
+        <a href="#" style="color: var(--text-muted); font-size: 0.75rem; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">GitHub</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+
+<script>
+  // Utility: Safe Library Checks
+  const hasGSAP = typeof gsap !== 'undefined';
+  const hasLenis = typeof Lenis !== 'undefined';
+  const hasScrollTrigger = typeof ScrollTrigger !== 'undefined';
+
+  // Preloader Logic (Native JS)
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+      setTimeout(() => {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 500);
+      }, 800);
+    }
+    
+    // If GSAP failed, ensure all reveals are visible immediately as a fallback
+    if (!hasGSAP) {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        el.classList.add('active');
+      });
+    }
+  });
+
+  // Smooth Scrolling (Lenis) - Protected
+  if (hasLenis) {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // GSAP ScrollTrigger Integration - Protected
+    if (hasGSAP && hasScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+
+      // True Parallax Background Blobs
+      gsap.to('.blob-1', {
+        yPercent: 50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1
+        }
+      });
+      gsap.to('.blob-2', {
+        yPercent: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1
+        }
+      });
+
+      // Timeline Progress ScrollTrigger
+      gsap.to('.timeline-progress', {
+        height: "100%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".timeline",
+          start: "top center",
+          end: "bottom center",
+          scrub: true
+        }
+      });
+    }
+  }
+
+  // Custom Cursor Logic
+  const cursorDot = document.getElementById('cursor-dot');
+  const cursorOutline = document.getElementById('cursor-outline');
+  
+  if (cursorDot && cursorOutline) {
+    let mouseX = 0; let mouseY = 0;
+    let outlineX = 0; let outlineY = 0;
+    
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top = `${mouseY}px`;
+    });
+
+    // If GSAP is available, use high-performance ticker and enable custom cursor styling
+    if (hasGSAP) {
+      document.body.classList.add('custom-cursor-active');
+      gsap.ticker.add(() => {
+        outlineX += (mouseX - outlineX) * 0.15;
+        outlineY += (mouseY - outlineY) * 0.15;
+        cursorOutline.style.left = `${outlineX}px`;
+        cursorOutline.style.top = `${outlineY}px`;
+      });
+
+      // Cursor Hover States
+      const interactiveElements = document.querySelectorAll('a, button, .btn');
+      interactiveElements.forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          cursorOutline.classList.add('hovering');
+          cursorDot.classList.add('hovering');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursorOutline.classList.remove('hovering');
+          cursorDot.classList.remove('hovering');
+          gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+        });
+      });
+
+      // Magnetic Buttons Logic
+      const magneticButtons = document.querySelectorAll('.btn');
+      magneticButtons.forEach((btn) => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(btn, {
+            x: x * 0.3,
+            y: y * 0.3,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        });
+      });
+
+      // 3D Tilt Effect Logic
+      const tiltCards = document.querySelectorAll('.glow-card');
+      tiltCards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const tiltX = (y - centerY) / 15;
+          const tiltY = (centerX - x) / 15;
+          card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+        });
+      });
+
+      // Cursor Click Animation
+      window.addEventListener('mousedown', () => {
+        gsap.to(cursorDot, { scale: 1.5, duration: 0.1 });
+        gsap.to(cursorOutline, { scale: 0.8, duration: 0.1 });
+      });
+      window.addEventListener('mouseup', () => {
+        gsap.to(cursorDot, { scale: 1, duration: 0.2 });
+        gsap.to(cursorOutline, { scale: 1, duration: 0.2 });
+      });
+    } else {
+      // Basic fallback for cursor outline if GSAP is missing
+      const updateOutline = () => {
+        outlineX += (mouseX - outlineX) * 0.15;
+        outlineY += (mouseY - outlineY) * 0.15;
+        cursorOutline.style.left = `${outlineX}px`;
+        cursorOutline.style.top = `${outlineY}px`;
+        requestAnimationFrame(updateOutline);
+      };
+      updateOutline();
+    }
+  }
+
+  // Navbar scroll (Native JS)
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    }, { passive: true });
+  }
+
+  // Advanced Reveal Animations via Intersection Observer (Native JS)
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.15
+  };
+
+  const animateValue = (obj, start, end, duration, suffix = '') => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const current = progress * (end - start) + start;
+      if (end % 1 !== 0) {
+        obj.innerHTML = current.toFixed(1) + suffix;
+      } else {
+        obj.innerHTML = Math.floor(current) + suffix;
+      }
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        const counters = entry.target.querySelectorAll('.stat-counter');
+        counters.forEach(counter => {
+          const targetValue = parseFloat(counter.getAttribute('data-count'));
+          const suffix = counter.getAttribute('data-suffix') || '';
+          animateValue(counter, 0, targetValue, 2000, suffix);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Text Splitting & Staggered Reveal
+  document.querySelectorAll('.page-title, .hero-title').forEach(title => {
+    const text = title.innerText;
+    title.innerHTML = text.split(' ').map(word => `<span class="reveal-word" style="display: inline-block; opacity: 0; transform: translateY(20px); filter: blur(10px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);">${word}</span>`).join(' ');
+    
+    setTimeout(() => {
+      const words = title.querySelectorAll('.reveal-word');
+      words.forEach((word, index) => {
+        setTimeout(() => {
+          word.style.opacity = '1';
+          word.style.transform = 'translateY(0)';
+          word.style.filter = 'blur(0)';
+        }, index * 100);
+      });
+    }, 1000);
+  });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Text Splitting & Staggered Reveal
+  document.querySelectorAll('.page-title, .hero-title').forEach(title => {
+    const text = title.innerText;
+    title.innerHTML = text.split(' ').map(word => `<span class="reveal-word">${word}</span>`).join(' ');
+    
+    if (typeof gsap !== 'undefined') {
+      gsap.from(title.querySelectorAll('.reveal-word'), {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power3.out",
+        delay: 0.8
+      });
+    }
+  });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Mobile Menu Toggle Logic
+  const mobileNavToggle = document.getElementById('mobileNavToggle');
+  const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+  const closeMobileMenu = document.getElementById('closeMobileMenu');
+  const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
+
+  const toggleMenu = (forceClose = false) => {
+    if (forceClose) {
+      mobileMenuOverlay.classList.remove('active');
+      mobileNavToggle.classList.remove('active');
+    } else {
+      mobileMenuOverlay.classList.toggle('active');
+      mobileNavToggle.classList.toggle('active');
+    }
+  };
+
+  if (mobileNavToggle && mobileMenuOverlay) {
+    mobileNavToggle.addEventListener('click', () => toggleMenu());
+    if (closeMobileMenu) {
+      closeMobileMenu.addEventListener('click', () => toggleMenu(true));
+    }
+
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', () => toggleMenu(true));
+    });
+  }
+
+  // Preloader Removal
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+      preloader.style.opacity = '0';
+      setTimeout(() => preloader.style.display = 'none', 500);
+    }
+  });
+</script>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

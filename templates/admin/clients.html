@@ -1,0 +1,60 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Client Directory | RT Command Center{% endblock %}
+
+{% block content %}
+<header class="admin-header reveal">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+    <div>
+      <h1 class="admin-title">Client Directory</h1>
+      <p style="color: var(--admin-text-muted); font-size: 1.1rem;">Database of registered enterprise partners and academic entities.</p>
+    </div>
+    <a href="{{ url_for('admin_add_client') }}" class="btn btn-primary" style="padding: 0.75rem 1.5rem; border-radius: 12px;">+ Register Entity</a>
+  </div>
+</header>
+
+<div class="data-panel reveal">
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Entity Identifier</th>
+          <th>Industry / Sector</th>
+          <th>Status</th>
+          <th>Contract Value</th>
+          <th>Last Activity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for client in clients.items %}
+        <tr>
+          <td>
+            <div style="font-weight: 700; color: var(--admin-text);">{{ client.name }}</div>
+            <div style="font-size: 0.75rem; color: var(--admin-text-muted);">{{ client.email }}</div>
+          </td>
+          <td>{{ client.industry or 'General' }}</td>
+          <td>
+            <span class="status-badge {% if client.status == 'active' %}badge-resolved{% else %}badge-contacted{% endif %}">
+              {{ client.status }}
+            </span>
+          </td>
+          <td style="font-family: 'JetBrains Mono', monospace; color: var(--admin-success);">₹{{ "{:,.2f}".format(client.contract_value) }}</td>
+          <td style="color: var(--admin-text-muted);">{{ client.updated_at.strftime('%Y-%m-%d') }}</td>
+          <td>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-outline btn-sm" style="padding: 0.35rem 0.75rem; border-color: var(--admin-border); color: var(--admin-text);">Modify</button>
+              <button class="btn btn-sm" style="padding: 0.35rem 0.75rem; background: rgba(255, 69, 58, 0.1); color: var(--admin-error); border: 1px solid rgba(255, 69, 58, 0.2);">Purge</button>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" style="text-align: center; padding: 6rem; color: var(--admin-text-muted);">No entities registered in the directory.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

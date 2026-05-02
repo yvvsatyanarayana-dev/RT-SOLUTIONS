@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Authentication | RT Solutions</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ffffff'/><path d='M20 20h60v60h-60z' fill='none' stroke='%231d1d1f' stroke-width='4'/><text x='50' y='66' font-size='46' font-weight='700' font-family='sans-serif' fill='%231d1d1f' text-anchor='middle'>RT</text></svg>">
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: #E7E7E7 !important; }
+
+    .login-container {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #E7E7E7 !important;
+    }
+
+    .login-split {
+      display: flex;
+      width: 100%;
+      z-index: 1;
+    }
+
+    /* Left Side: Light Branding Area */
+    .login-branding {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem;
+      background: #E7E7E7 !important;
+      position: relative;
+    }
+    
+    /* Technical Grid with DEFINED BLACK LINES */
+    .login-branding::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(0,0,0,0.08) 1.5px, transparent 1.5px),
+        linear-gradient(90deg, rgba(0,0,0,0.08) 1.5px, transparent 1.5px);
+      background-size: 60px 60px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .branding-content { position: relative; z-index: 2; }
+
+    .login-logo-flat {
+      width: 64px;
+      height: 64px;
+      background: #1d1d1f !important;
+      color: #ffffff !important;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .company-name {
+      font-size: 4.5rem;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      margin: 0;
+      line-height: 0.9;
+      color: #1d1d1f !important;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: #9B9B9B !important;
+      margin-top: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    .tagline::after {
+      content: '';
+      height: 1px;
+      flex: 1;
+      background: rgba(0,0,0,0.15);
+      max-width: 120px;
+    }
+
+    /* Right Side: Dark Form Area */
+    .login-form-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem;
+      background: #1d1d1f !important;
+      position: relative;
+    }
+    
+    /* Subtle Grid for Dark Side */
+    .login-form-area::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .login-card {
+      background: #ffffff !important;
+      border-radius: 32px;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+      padding: 4.5rem;
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .login-card.active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #9B9B9B;
+      margin-bottom: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      background: #fcfcfc;
+      border: 1px solid #1d1d1f;
+      border-radius: 16px;
+      color: #1d1d1f;
+      font-size: 1.1rem;
+      font-family: inherit;
+      font-weight: 600;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .form-control:focus {
+      outline: none;
+      background: #fff;
+      border-color: #1d1d1f;
+      border-width: 2px;
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-auth {
+      width: 100%;
+      padding: 1.25rem;
+      background: #1d1d1f !important;
+      color: #ffffff !important;
+      border: none;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-top: 1rem;
+    }
+
+    .btn-auth:hover {
+      background: #000 !important;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .message {
+      padding: 1.25rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+      display: none;
+    }
+
+    .message.success { background: #fafafa; color: #1d1d1f; border: 1px solid #1d1d1f; }
+    .message.error { background: rgba(255, 59, 48, 0.05); color: #ff3b30; border: 1px solid rgba(255, 59, 48, 0.1); }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-split">
+      <!-- Left: Branding (Light) -->
+      <div class="login-branding">
+        <div class="branding-content">
+          <div class="login-logo-flat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <h1 class="company-name">RT Solutions</h1>
+          <p class="tagline">Admin Dashboard</p>
+        </div>
+      </div>
+
+      <!-- Right: Form Area (Dark) -->
+      <div class="login-form-area">
+        <div class="login-card" id="loginCard">
+          <div id="message" class="message"></div>
+          
+          <form id="loginForm">
+            <div class="form-group">
+              <label class="form-label" for="username">username</label>
+              <input type="text" id="username" class="form-control" required placeholder="admin" autocomplete="username">
+            </div>
+            <div class="form-group" style="margin-bottom: 2.5rem;">
+              <label class="form-label" for="password">password</label>
+              <input type="password" id="password" class="form-control" required placeholder="••••••••" autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn-auth" id="submitBtn">Authenticate</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.getElementById('loginCard').classList.add('active');
+      }, 100);
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const btn = document.getElementById('submitBtn');
+      const msgDiv = document.getElementById('message');
+
+      btn.innerText = 'Validating Protocol...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch('/admin/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({username, password})
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          msgDiv.className = 'message success';
+          msgDiv.textContent = 'Identity Verified. Access Granted.';
+          msgDiv.style.display = 'block';
+          setTimeout(() => window.location.href = data.redirect, 1000);
+        } else {
+          msgDiv.className = 'message error';
+          msgDiv.textContent = 'Identity Mismatch: ' + data.message;
+          msgDiv.style.display = 'block';
+          btn.innerText = 'Authenticate';
+          btn.style.opacity = '1';
+          btn.disabled = false;
+        }
+      } catch (error) {
+        msgDiv.className = 'message error';
+        msgDiv.textContent = 'Neural Link Failure: Request Timed Out.';
+        msgDiv.style.display = 'block';
+        btn.innerText = 'Authenticate';
+        btn.style.opacity = '1';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
