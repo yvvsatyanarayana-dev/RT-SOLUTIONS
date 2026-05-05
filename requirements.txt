@@ -61,3 +61,4 @@ werkzeug==3.1.8
     #   flask-login
 wtforms==3.2.1
     # via flask-wtf
+gunicorn
