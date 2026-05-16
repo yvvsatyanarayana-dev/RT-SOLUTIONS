@@ -214,6 +214,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .nav-container { display: flex; align-items: center; justify-content: space-between; height: 100%; }
 .nav-logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main); }
+.logo-img { display: inline-flex; width: 32px; height: 32px; object-fit: contain; }
 .nav-links { display: flex; gap: 2.5rem; list-style: none; }
 .nav-links a { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); transition: var(--transition); }
 .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
