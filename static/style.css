@@ -181,6 +181,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 .glow-card:hover::before { opacity: 0.4; }
 
+/* ── CLOUD DEPLOYMENT TOPOLOGY CARD ── */
+.topology-card {
+  border-radius: var(--radius-sm);
+  text-align: center;
+  width: 100%;
+  padding: 1.5rem 3rem;
+  transition: var(--transition);
+}
+.topology-card.client {
+  background: rgba(0, 102, 204, 0.05);
+  border: 1px dashed var(--accent-blue);
+}
+.topology-card.gateway {
+  background: rgba(168, 83, 186, 0.05);
+  border: 1px dashed rgba(168, 83, 186, 0.5);
+}
+.topology-card.compute {
+  background: rgba(52, 199, 89, 0.05);
+  border: 1px dashed rgba(52, 199, 89, 0.5);
+  padding: 1.5rem 2rem;
+}
+.topology-card.data {
+  background: rgba(255, 149, 0, 0.05);
+  border: 1px dashed rgba(255, 149, 0, 0.5);
+  padding: 1.5rem 2rem;
+}
+
 /* ── NAVBAR ── */
 .navbar {
   position: fixed;
@@ -400,8 +427,14 @@ td { padding: 1.25rem 1.5rem; border-bottom: 1px solid #e7e7e7; font-size: 1rem;
     border-radius: 12px !important;
   }
   
-  .topology-compute {
+  .topology-compute-container {
     grid-template-columns: 1fr !important;
+  }
+  .topology-card {
+    padding: 1.25rem 1.5rem !important;
+  }
+  .glow-card {
+    padding: 1.5rem !important;
   }
 
   /* Architecture Responsive Fixes */

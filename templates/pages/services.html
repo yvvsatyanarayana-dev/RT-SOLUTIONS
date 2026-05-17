@@ -20,7 +20,7 @@
         
         <!-- Client Layer -->
         <div class="reveal d-1" style="display: flex; align-items: center; justify-content: center; gap: 2rem;">
-          <div style="background: rgba(0, 102, 204, 0.05); border: 1px dashed var(--accent-blue); padding: 1.5rem 3rem; border-radius: var(--radius-sm); text-align: center; width: 100%;">
+          <div class="topology-card client">
             <strong style="color: var(--text-main); display: block; margin-bottom: 0.5rem;">Client Interface Layer</strong>
             <span style="color: var(--text-muted); font-size: 0.9rem;">React.js / Next.js / Mobile Apps</span>
           </div>
@@ -33,7 +33,7 @@
         
         <!-- API Layer -->
         <div class="reveal d-2" style="display: flex; align-items: center; justify-content: center; gap: 2rem;">
-          <div style="background: rgba(168, 83, 186, 0.05); border: 1px dashed rgba(168, 83, 186, 0.5); padding: 1.5rem 3rem; border-radius: var(--radius-sm); text-align: center; width: 100%;">
+          <div class="topology-card gateway">
             <strong style="color: var(--text-main); display: block; margin-bottom: 0.5rem;">API Gateway & Load Balancer</strong>
             <span style="color: var(--text-muted); font-size: 0.9rem;">Nginx / AWS API Gateway / Rate Limiting</span>
           </div>
@@ -45,12 +45,12 @@
         </div>
         
         <!-- Compute & Data Layer -->
-        <div class="reveal d-3" class="topology-compute" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-          <div style="background: rgba(52, 199, 89, 0.05); border: 1px dashed rgba(52, 199, 89, 0.5); padding: 1.5rem 2rem; border-radius: var(--radius-sm); text-align: center;">
+        <div class="reveal d-3 topology-compute-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
+          <div class="topology-card compute">
             <strong style="color: var(--text-main); display: block; margin-bottom: 0.5rem;">Microservices</strong>
             <span style="color: var(--text-muted); font-size: 0.9rem;">Node.js / Python Flask / Docker Containers</span>
           </div>
-          <div style="background: rgba(255, 149, 0, 0.05); border: 1px dashed rgba(255, 149, 0, 0.5); padding: 1.5rem 2rem; border-radius: var(--radius-sm); text-align: center;">
+          <div class="topology-card data">
             <strong style="color: var(--text-main); display: block; margin-bottom: 0.5rem;">Data Persistence</strong>
             <span style="color: var(--text-muted); font-size: 0.9rem;">PostgreSQL / Redis Cache / S3 Storage</span>
           </div>
