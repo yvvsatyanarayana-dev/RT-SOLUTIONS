@@ -3,45 +3,136 @@
 {% block title %}RT Solutions | High-Performance Engineering{% endblock %}
 
 {% block content %}
-<!-- ── HERO ── -->
-<section style="min-height: 100vh; display: flex; align-items: center; padding-top: 72px; position: relative;">
-  <div class="container" style="text-align: center; max-width: 900px;">
-    <h1 class="hero-title" style="margin-bottom: 1.5rem;">
-      Architecting the future of software.
-    </h1>
-    <p class="reveal d-1" style="font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--text-dark); margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.7;">
-      We build high-performance, scalable web architectures for modern enterprises, and train the next generation of engineers through rigorous academic programs.
-    </p>
-    
-    <div class="reveal d-2" style="display: flex; gap: 1rem; justify-content: center;">
-      <a href="{{ url_for('capabilities') }}" class="btn btn-primary" style="padding: 1.25rem 2.5rem; font-size: 1.1rem;">Explore Capabilities</a>
-      <a href="{{ url_for('engage') }}" class="btn btn-outline" style="padding: 1.25rem 2.5rem; font-size: 1.1rem;">Schedule Consultation</a>
+<!-- ══════════════════════════════════════════════════
+     HERO — Split: Content Left | 3D Sphere Right
+     ══════════════════════════════════════════════════ -->
+<section id="hero" style="min-height:100vh; padding-top:72px; padding-bottom:5rem; display:flex; align-items:center; position:relative; overflow:hidden;">
+
+  <!-- Animated subtle grid -->
+  <div class="hero-grid"></div>
+  <!-- Soft colour orbs -->
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="container" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; width:100%; max-width:1200px; position:relative; z-index:2;">
+
+    <!-- ── LEFT: COPY ── -->
+    <div style="text-align:left;">
+
+      <h1 class="hero-title" style="margin-bottom:1.5rem; text-align:left;">
+        Architecting<br>
+        <span class="gradient-text">the future</span><br>
+        of software.
+      </h1>
+
+      <p style="font-size:1.15rem; color:var(--text-dark); margin-bottom:2.5rem; max-width:480px; line-height:1.8;">
+        High-performance web architectures for modern enterprises — and rigorous academic training for the next generation of engineers.
+      </p>
+
+      <!-- Metrics row -->
+      <div style="display:flex; gap:2.5rem; margin-bottom:3rem;">
+        <div>
+          <div style="font-size:1.8rem; font-weight:800; letter-spacing:-1px; color:var(--text-main);">99.9%</div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600;">Uptime SLA</div>
+        </div>
+        <div style="width:1px; background:var(--border-color);"></div>
+        <div>
+          <div style="font-size:1.8rem; font-weight:800; letter-spacing:-1px; color:var(--text-main);">500+</div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600;">Engineers Trained</div>
+        </div>
+        <div style="width:1px; background:var(--border-color);"></div>
+        <div>
+          <div style="font-size:1.8rem; font-weight:800; letter-spacing:-1px; color:var(--text-main);">8+</div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600;">Years Experience</div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:1rem;">
+        <a href="{{ url_for('capabilities') }}" class="btn btn-primary" style="padding:1.1rem 2.2rem; font-size:1rem;">Explore Capabilities</a>
+        <a href="{{ url_for('engage') }}" class="btn btn-outline" style="padding:1.1rem 2.2rem; font-size:1rem;">Schedule Consultation</a>
+      </div>
+
     </div>
+
+    <!-- ── RIGHT: 3D CANVAS ── -->
+    <div id="hero-3d-wrapper" style="position:relative; height:520px; display:flex; align-items:center; justify-content:center;">
+      <canvas id="hero-canvas" style="width:100%; height:100%; display:block;"></canvas>
+      <!-- Floating tech labels anchored to 3D wrapper -->
+      
+      <!-- Top Center -->
+      <div class="tech-tag hide-mobile" style="top: 2%; left: 35%; animation-duration: 7.2s; animation-delay: -2.5s;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20c-1-5 4-10 4-15 0 0-7 2-9 10-1 4 2 6 2 6l3-1"></path></svg>
+        MongoDB
+      </div>
+
+      <!-- Top Right -->
+      <div class="tech-tag hide-mobile" style="top: 15%; right: 5%; animation-duration: 6s; animation-delay: -1s;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 4.12A8 8 0 0 1 20 12.31v4.38L12 21.31l-8-4.62v-4.38a8 8 0 0 1 2.34-5.5L12 2.69z"></path></svg>
+        AWS Cloud
+      </div>
+
+      <!-- Middle Right -->
+      <div class="tech-tag hide-mobile" style="top: 45%; right: 2%; animation-duration: 7.5s; animation-delay: 0s;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        React & Next.js
+      </div>
+
+      <!-- Bottom Right -->
+      <div class="tech-tag hide-mobile" style="bottom: 15%; right: 5%; animation-duration: 9s; animation-delay: -4s;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        Docker & K8s
+      </div>
+      
+      <!-- Bottom Center -->
+      <div class="tech-tag hide-mobile" style="bottom: 5%; left: 35%; animation-duration: 8.5s; animation-delay: -2s;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        PostgreSQL
+      </div>
+
+      <!-- Bottom Left -->
+      <div class="tech-tag hide-mobile" style="bottom: 15%; left: 5%; animation-duration: 7s; animation-delay: -3s;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+        Python & FastAPI
+      </div>
+
+      <!-- Middle Left -->
+      <div class="tech-tag hide-mobile" style="top: 45%; left: 2%; animation-duration: 8.5s; animation-delay: -1.5s;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+        MySQL
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- ── INFINITE TECH STACK MARQUEE ── -->
-<div class="marquee-container reveal">
-  <div class="marquee-content">
-    <span>React.js</span> <span>•</span>
-    <span>Node.js</span> <span>•</span>
-    <span>Python (Flask/Django)</span> <span>•</span>
-    <span>AWS Infrastructure</span> <span>•</span>
-    <span>Docker & Kubernetes</span> <span>•</span>
-    <span>PostgreSQL</span> <span>•</span>
-    <span>Next.js</span> <span>•</span>
-    <span>React.js</span> <span>•</span>
-    <span>Node.js</span> <span>•</span>
-    <span>Python</span> <span>•</span>
-    <span>AWS</span> <span>•</span>
-  </div>
-</div>
+<!-- Mobile hero (single-column) -->
+<style>
+  @media (max-width: 900px) {
+    #hero .container { grid-template-columns: 1fr !important; }
+    #hero-3d-wrapper { height: 320px !important; }
+    #hero h1 { text-align: center !important; }
+    #hero p  { margin-left: auto; margin-right: auto; text-align: center; max-width: 480px; }
+    #hero > .container > div:first-child { align-items: center; display: flex; flex-direction: column; }
+    #hero [style*="gap:2.5rem"] { justify-content: center; }
+    #hero [style*="gap:1rem"] { justify-content: center; }
+  }
+</style>
+
+
+
 
 <!-- ── ENGINEERING DOMAINS ── -->
 <section class="section">
   <div class="container">
     <div style="text-align: center; margin-bottom: 5rem;" class="reveal">
       <h2 class="section-title">Core Competencies</h2>
+      <div class="section-divider"></div>
       <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Specialized engineering divisions driving measurable impact.</p>
     </div>
     
@@ -84,6 +175,7 @@
   <div class="container">
     <div style="text-align: center; margin-bottom: 5rem;" class="reveal">
       <h2 class="section-title">Delivery Methodology</h2>
+      <div class="section-divider"></div>
       <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Our systematic approach to ensuring zero-defect deployments.</p>
     </div>
 
@@ -141,19 +233,24 @@
 
     <div class="grid">
       <div class="glow-card card-animated reveal" style="padding: 3rem;">
-        <div class="stat-counter" data-count="99.9" data-suffix="%" style="font-family: var(--font-display); font-size: 3rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem; letter-spacing: -2px;">0%</div>
+        <div class="stat-counter" data-count="99.9" data-suffix="%">0%</div>
+        <div class="section-divider" style="margin: 0 0 1.5rem;"></div>
         <div style="color: var(--accent-blue); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem;">Uptime Maintained</div>
         <h4 style="font-size: 1.25rem; margin-bottom: 1rem;">Fintech Data Portal</h4>
-        <p style="color: var(--text-dark);">Architected a high-throughput transaction monitoring dashboard handling 10,000+ requests per minute with zero latency drops.</p>
+        <p style="color: var(--text-dark); margin-bottom: 1.5rem;">Architected a high-throughput transaction monitoring dashboard handling 10,000+ requests per minute with zero latency drops.</p>
+        <div class="stat-bar"><div class="stat-bar-fill" style="--bar-width: 99.9%;"></div></div>
       </div>
-      
+
       <div class="glow-card card-animated reveal d-1" style="padding: 3rem;">
-        <div class="stat-counter" data-count="500" data-suffix="+" style="font-family: var(--font-display); font-size: 3rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem; letter-spacing: -2px;">0+</div>
+        <div class="stat-counter" data-count="500" data-suffix="+">0+</div>
+        <div class="section-divider" style="margin: 0 0 1.5rem;"></div>
         <div style="color: var(--accent-blue); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem;">Engineers Trained</div>
         <h4 style="font-size: 1.25rem; margin-bottom: 1rem;">Academic Division</h4>
-        <p style="color: var(--text-dark);">Successfully mentored university students through full-stack capstone projects, drastically increasing their industry employability.</p>
+        <p style="color: var(--text-dark); margin-bottom: 1.5rem;">Successfully mentored university students through full-stack capstone projects, drastically increasing their industry employability.</p>
+        <div class="stat-bar"><div class="stat-bar-fill" style="--bar-width: 85%;"></div></div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -228,45 +325,230 @@
   <div class="container">
     <div style="text-align: center; margin-bottom: 5rem;" class="reveal">
       <h2 class="section-title">The Engineering Standard</h2>
+      <div class="section-divider"></div>
       <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Our internal benchmarks for system health and architectural purity.</p>
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
-      <div class="glow-card card-animated reveal" style="padding: 2rem; border-left: 4px solid var(--text-main);">
-        <h4 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1rem;">Performance</h4>
-        <div style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">&lt; 200ms</div>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Standard Time-To-First-Byte (TTFB) for all enterprise API endpoints.</p>
+      <div class="glow-card card-animated reveal" style="padding: 2rem; border-left: 3px solid #1d1d1f;">
+        <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1.25rem;">Performance</h4>
+        <div style="font-size: 2.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 0.75rem;">&lt; 200ms</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">Standard Time-To-First-Byte for all enterprise API endpoints.</p>
       </div>
 
-      <div class="glow-card card-animated reveal d-1" style="padding: 2rem; border-left: 4px solid var(--text-main);">
-        <h4 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1rem;">Availability</h4>
-        <div style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">99.99%</div>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Guaranteed uptime through multi-region cloud clustering and failover logic.</p>
+      <div class="glow-card card-animated reveal d-1" style="padding: 2rem; border-left: 3px solid #1d1d1f;">
+        <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1.25rem;">Availability</h4>
+        <div style="font-size: 2.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 0.75rem;">99.99%</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">Guaranteed uptime through multi-region cloud clustering and failover logic.</p>
       </div>
 
-      <div class="glow-card card-animated reveal d-2" style="padding: 2rem; border-left: 4px solid var(--text-main);">
-        <h4 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1rem;">Security</h4>
-        <div style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">A+</div>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Qualys SSL/TLS rating maintained for all production environments.</p>
+      <div class="glow-card card-animated reveal d-2" style="padding: 2rem; border-left: 3px solid #1d1d1f;">
+        <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1.25rem;">Security</h4>
+        <div style="font-size: 2.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 0.75rem;">A+</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">Qualys SSL/TLS rating maintained for all production environments.</p>
       </div>
 
-      <div class="glow-card card-animated reveal d-3" style="padding: 2rem; border-left: 4px solid var(--text-main);">
-        <h4 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1rem;">Testing</h4>
-        <div style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">100%</div>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Code coverage requirements for all mission-critical transaction modules.</p>
+      <div class="glow-card card-animated reveal d-3" style="padding: 2rem; border-left: 3px solid #1d1d1f;">
+        <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1.25rem;">Test Coverage</h4>
+        <div style="font-size: 2.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 0.75rem;">100%</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">Code coverage requirements for all mission-critical transaction modules.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── CTA ── -->
+<!-- ── CTA BANNER ── -->
 <section class="section" style="padding-top: 0;">
   <div class="container">
-    <div class="cta-banner reveal-scale">
-      <h2 style="font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -0.02em;">Ready to architect your solution?</h2>
-      <p>Initiate a technical consultation to discuss your specific infrastructure or training requirements.</p>
-      <a href="{{ url_for('engage') }}" class="btn btn-outline" style="padding: 1.25rem 3rem; font-size: 1.1rem; background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">Connect With Engineering</a>
+    <div class="cta-banner reveal-scale" style="background: #151516; border: 1px solid rgba(255, 255, 255, 0.1); text-align: center; padding: 7rem 3rem; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.15);">
+      
+      <!-- Flawless subtle metallic glow (no clipping/rotation edges) -->
+      <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:100%; height:100%; background: radial-gradient(ellipse at top, rgba(255,255,255,0.06) 0%, transparent 60%); pointer-events:none;"></div>
+      
+      <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.03em; color: #ffffff; position:relative; z-index:1; margin-bottom: 1.5rem;">
+        Ready to architect your solution?
+      </h2>
+      <p style="color: rgba(255, 255, 255, 0.7); font-size: 1.25rem; max-width: 600px; margin: 0 auto 3.5rem; position:relative; z-index:1; line-height: 1.6;">
+        Initiate a technical consultation to discuss your specific infrastructure or training requirements.
+      </p>
+      <a href="{{ url_for('engage') }}" class="btn" style="background: #ffffff; color: #000000; border: none; padding: 1.25rem 3.5rem; font-size: 1.1rem; border-radius: 50px; font-weight: 700; position:relative; z-index:1; box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+        Connect With Engineering
+      </a>
     </div>
   </div>
 </section>
 {% endblock %}
+
+{% block scripts %}
+<!-- Load Three.js only on this page -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ═══════════════════════════════════════════
+   HERO 3D SCENE — contained inside hero-canvas
+   ═══════════════════════════════════════════ */
+(function initHero3D() {
+  const wrapper = document.getElementById('hero-3d-wrapper');
+  const canvas  = document.getElementById('hero-canvas');
+  if (!wrapper || !canvas || typeof THREE === 'undefined') return;
+
+  const W = wrapper.clientWidth  || 560;
+  const H = wrapper.clientHeight || 520;
+
+  /* ── Scene / Camera / Renderer ── */
+  const scene    = new THREE.Scene();
+  const camera   = new THREE.PerspectiveCamera(50, W / H, 0.1, 500);
+  camera.position.set(0, 0, 38);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  /* ── 1. PRIMARY ICOSAHEDRON NETWORK ── */
+  const icoGeo   = new THREE.IcosahedronGeometry(10, 3);
+  const icoWire  = new THREE.WireframeGeometry(icoGeo);
+  const icoLines = new THREE.LineSegments(icoWire,
+    new THREE.LineBasicMaterial({ color: 0x1d1d1f, transparent: true, opacity: 0.12 })
+  );
+  const icoPoints = new THREE.Points(icoGeo,
+    new THREE.PointsMaterial({ size: 0.22, color: 0x1d1d1f, transparent: true, opacity: 0.45 })
+  );
+  const icoGroup = new THREE.Group();
+  icoGroup.add(icoLines);
+  icoGroup.add(icoPoints);
+  // Centered in the canvas
+  icoGroup.position.set(0, 0, 0);
+  scene.add(icoGroup);
+
+  /* ── 2. TORUS RING HALO (orbits outside sphere) ── */
+  const ringGeo  = new THREE.TorusGeometry(13, 0.08, 8, 120);
+  const ringMesh = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: 0x86868b, transparent: true, opacity: 0.15 }));
+  ringMesh.rotation.x = Math.PI * 0.35;
+  scene.add(ringMesh);
+
+  /* ── 3. FLOATING TORUS KNOT — far bottom-right, SEPARATE from sphere ── */
+  const tGeo   = new THREE.TorusKnotGeometry(2.2, 0.45, 100, 16);
+  const tWire  = new THREE.WireframeGeometry(tGeo);
+  const tLines = new THREE.LineSegments(tWire,
+    new THREE.LineBasicMaterial({ color: 0x444444, transparent: true, opacity: 0.2 })
+  );
+  // Position well outside the sphere (radius 10) in the lower-right
+  tLines.position.set(14, -11, -8);
+  tLines.scale.setScalar(1);
+  scene.add(tLines);
+
+  /* ── 4. SMALL OCTAHEDRON — upper-left accent ── */
+  const oGeo   = new THREE.OctahedronGeometry(2.2, 1);
+  const oWire  = new THREE.WireframeGeometry(oGeo);
+  const oLines = new THREE.LineSegments(oWire,
+    new THREE.LineBasicMaterial({ color: 0x666666, transparent: true, opacity: 0.25 })
+  );
+  // Upper-left, outside sphere radius
+  oLines.position.set(-13, 10, -5);
+  scene.add(oLines);
+
+  /* ── 4. FLOATING PARTICLE CLOUD ── */
+  const pCount = 900;
+  const pPos   = new Float32Array(pCount * 3);
+  for (let i = 0; i < pCount; i++) {
+    pPos[i * 3]     = (Math.random() - 0.5) * 40;
+    pPos[i * 3 + 1] = (Math.random() - 0.5) * 30;
+    pPos[i * 3 + 2] = (Math.random() - 0.5) * 20;
+  }
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  const particles = new THREE.Points(pGeo,
+    new THREE.PointsMaterial({ size: 0.12, color: 0x1d1d1f, transparent: true, opacity: 0.15 })
+  );
+  scene.add(particles);
+
+  /* ── 5. INNER GLOWING SOLID SPHERE ── */
+  const sphereGeo = new THREE.SphereGeometry(5, 32, 32);
+  const sphereMat = new THREE.MeshBasicMaterial({
+    color: 0xeff6ff, transparent: true, opacity: 0.04, wireframe: false
+  });
+  scene.add(new THREE.Mesh(sphereGeo, sphereMat));
+
+  /* ── MOUSE REACTIVE ── */
+  let mx = 0, my = 0, tx = 0, ty = 0;
+  const wrapperRect = () => wrapper.getBoundingClientRect();
+  document.addEventListener('mousemove', e => {
+    const r = wrapperRect();
+    mx = ((e.clientX - r.left) / r.width  - 0.5) * 2;
+    my = ((e.clientY - r.top)  / r.height - 0.5) * 2;
+  });
+
+  /* ── RESIZE ── */
+  const onResize = () => {
+    const nW = wrapper.clientWidth, nH = wrapper.clientHeight;
+    camera.aspect = nW / nH;
+    camera.updateProjectionMatrix();
+    renderer.setSize(nW, nH);
+  };
+  window.addEventListener('resize', onResize);
+
+  /* ── RENDER LOOP ── */
+  const clock = new THREE.Clock();
+  (function tick() {
+    requestAnimationFrame(tick);
+    const t = clock.getElapsedTime();
+
+    // Smooth mouse tracking
+    tx += (mx - tx) * 0.05;
+    ty += (my - ty) * 0.05;
+
+    // Icosahedron: slow breathing rotation + mouse tilt
+    icoGroup.rotation.y = t * 0.09  + tx * 0.35;
+    icoGroup.rotation.x = t * 0.045 + ty * 0.2;
+
+    // Halo ring: tilted slow rotation
+    ringMesh.rotation.z = t * 0.04;
+    ringMesh.rotation.y = t * 0.03;
+
+    // Torus knot: spinning accent — stays in lower-right
+    tLines.rotation.x = t * 0.18;
+    tLines.rotation.y = t * 0.12;
+    tLines.position.y = -11 + Math.sin(t * 0.4) * 1.5;
+
+    // Octahedron: upper-left counter-rotation
+    oLines.rotation.y = -t * 0.15;
+    oLines.rotation.z =  t * 0.09;
+    oLines.position.y = 10 + Math.cos(t * 0.3) * 1.0;
+
+    // Particles: slow drift
+    particles.rotation.y = t * 0.012;
+
+    renderer.render(scene, camera);
+  })();
+})();
+
+/* ─── STAT-BAR ACTIVATION ─── */
+const _statObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.stat-bar-fill').forEach(b => b.classList.add('active'));
+      _statObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.glow-card').forEach(c => _statObs.observe(c));
+
+/* ─── REVEAL-BLUR ─── */
+const _blurObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); _blurObs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal-blur').forEach(el => _blurObs.observe(el));
+
+/* ─── GSAP HERO ENTRANCE ─── */
+if (typeof gsap !== 'undefined') {
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  tl.from('#hero h1',       { y: 60,  opacity: 0, duration: 1.2, filter: 'blur(10px)', delay: 0.4 })
+    .from('#hero p',        { y: 30,  opacity: 0, duration: 1.0 }, '-=0.8')
+    .from('#hero [style*="gap:2.5rem"]', { y: 20, opacity: 0, duration: 0.8 }, '-=0.7')
+    .from('#hero [style*="gap:1rem"]',   { y: 20, opacity: 0, duration: 0.8 }, '-=0.7')
+    .from('#hero-canvas',   { opacity: 0, scale: 0.9, duration: 1.6, ease: 'power2.out' }, '-=1.4')
+    .from('.tech-tag',      { opacity: 0, x: 20, duration: 0.9, stagger: 0.15 }, '-=1.0')
+    .from('.scroll-indicator', { opacity: 0, y: 16, duration: 0.8 }, '-=0.5');
+}
+</script>
+{% endblock %}
+

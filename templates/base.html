@@ -13,14 +13,17 @@
 <body>
 
 <!-- Preloader -->
-<div id="preloader" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg-surface); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease;">
-  <div style="text-align: center;">
-    <svg viewBox="0 0 24 24" fill="none" stroke="var(--text-main)" stroke-width="2.5" width="60" height="60" style="margin-bottom: 1rem; animation: pulse 1.5s infinite;">
-      <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-      <polyline points="2 17 12 22 22 17"></polyline>
-      <polyline points="2 12 12 17 22 12"></polyline>
-    </svg>
-    <div style="font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; color: var(--text-main);">RT Solutions</div>
+<div id="preloader" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg-surface); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s ease;">
+  <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+    <div style="position: relative; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;">
+      <div class="preloader-ring" style="position: absolute; inset: 0;"></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--text-main)" stroke-width="2.5" width="32" height="32">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+    </div>
+    <div style="font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted);">Loading</div>
   </div>
 </div>
 
@@ -28,11 +31,7 @@
 <div class="cursor-dot" id="cursor-dot"></div>
 <div class="cursor-outline" id="cursor-outline"></div>
 
-<!-- Dynamic Parallax Background -->
-<div class="bg-blobs">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-</div>
+
 
 <nav class="navbar" id="navbar">
   <div class="container nav-container">
@@ -231,35 +230,32 @@
     }
   }
 
-  // Custom Cursor Logic
-  const cursorDot = document.getElementById('cursor-dot');
+  // ── Minimalist Cursor ──
+  const cursorDot     = document.getElementById('cursor-dot');
   const cursorOutline = document.getElementById('cursor-outline');
-  
+
   if (cursorDot && cursorOutline) {
-    let mouseX = 0; let mouseY = 0;
-    let outlineX = 0; let outlineY = 0;
-    
+    let mouseX = 0, mouseY = 0;
+    let outlineX = 0, outlineY = 0;
+
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      
       cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
+      cursorDot.style.top  = `${mouseY}px`;
     });
 
-    // If GSAP is available, use high-performance ticker and enable custom cursor styling
     if (hasGSAP) {
       document.body.classList.add('custom-cursor-active');
       gsap.ticker.add(() => {
-        outlineX += (mouseX - outlineX) * 0.15;
-        outlineY += (mouseY - outlineY) * 0.15;
+        outlineX += (mouseX - outlineX) * 0.18;
+        outlineY += (mouseY - outlineY) * 0.18;
         cursorOutline.style.left = `${outlineX}px`;
-        cursorOutline.style.top = `${outlineY}px`;
+        cursorOutline.style.top  = `${outlineY}px`;
       });
 
-      // Cursor Hover States
-      const interactiveElements = document.querySelectorAll('a, button, .btn');
-      interactiveElements.forEach((el) => {
+      // Hover states
+      document.querySelectorAll('a, button, .btn, .glow-card').forEach(el => {
         el.addEventListener('mouseenter', () => {
           cursorOutline.classList.add('hovering');
           cursorDot.classList.add('hovering');
@@ -271,50 +267,40 @@
         });
       });
 
-      // Magnetic Buttons Logic
-      const magneticButtons = document.querySelectorAll('.btn');
-      magneticButtons.forEach((btn) => {
+      // Magnetic buttons
+      document.querySelectorAll('.btn').forEach(btn => {
         btn.addEventListener('mousemove', (e) => {
           const rect = btn.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          gsap.to(btn, {
-            x: x * 0.3,
-            y: y * 0.3,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
+          const x = e.clientX - rect.left - rect.width  / 2;
+          const y = e.clientY - rect.top  - rect.height / 2;
+          gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: 'power2.out' });
         });
       });
 
-      // 3D Tilt Effect Logic
-      const tiltCards = document.querySelectorAll('.glow-card');
-      tiltCards.forEach(card => {
+      // 3D Tilt cards
+      document.querySelectorAll('.glow-card').forEach(card => {
         card.addEventListener('mousemove', e => {
           const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const tiltX = (y - centerY) / 15;
-          const tiltY = (centerX - x) / 15;
+          const x = e.clientX - rect.left, y = e.clientY - rect.top;
+          const tiltX = (y - rect.height/2) / 15;
+          const tiltY = (rect.width/2 - x) / 15;
           card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
           card.style.setProperty('--mouse-x', `${x}px`);
           card.style.setProperty('--mouse-y', `${y}px`);
         });
         card.addEventListener('mouseleave', () => {
-          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+          card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
         });
       });
 
-      // Cursor Click Animation
+      // Click pulse
       window.addEventListener('mousedown', () => {
-        gsap.to(cursorDot, { scale: 1.5, duration: 0.1 });
-        gsap.to(cursorOutline, { scale: 0.8, duration: 0.1 });
+        gsap.to(cursorDot,    { scale: 2, duration: 0.1 });
+        gsap.to(cursorOutline,{ scale: 0.8, duration: 0.1 });
       });
       window.addEventListener('mouseup', () => {
-        gsap.to(cursorDot, { scale: 1, duration: 0.2 });
-        gsap.to(cursorOutline, { scale: 1, duration: 0.2 });
+        gsap.to(cursorDot,    { scale: 1, duration: 0.3, ease: 'elastic.out(1,0.5)' });
+        gsap.to(cursorOutline,{ scale: 1, duration: 0.2 });
       });
     } else {
       // Basic fallback for cursor outline if GSAP is missing
